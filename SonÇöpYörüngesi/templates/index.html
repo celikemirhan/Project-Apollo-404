@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>ESA Debris Tracker + ArcGIS Earth</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="toolbar">
+        <div class="logo">🛰 DEBRIS TRACKER</div>
+        <div class="sep"></div>
+        <select id="uydu-sel" onchange="switchUydu(this.value)"></select>
+        <button class="tbtn" onclick="focusSat()">📍 Odaklan</button>
+        <button class="tbtn" onclick="freeView()">🌍 Serbest</button>
+        <button class="tbtn" onclick="zoomOut()">🔭 Uzaklaş</button>
+        <button class="tbtn" id="btn-d" onclick="toggleDebris()">☁ Debris Gizle</button>
+        <div class="sep"></div>
+        <div id="utc">—</div>
+    </div>
+
+    <div id="panel">
+        <div class="ptitle">📡 Uydu Bilgisi</div>
+        <div class="prow"><span class="plbl">İsim</span>    <span class="pval" id="p-isim">—</span></div>
+        <div class="prow"><span class="plbl">Enlem</span>   <span class="pval" id="p-lat">—</span></div>
+        <div class="prow"><span class="plbl">Boylam</span>  <span class="pval" id="p-lon">—</span></div>
+        <div class="prow"><span class="plbl">Ülke/Bölge</span><span class="pval" id="p-ulke">—</span></div>
+        <div class="prow"><span class="plbl">Yükseklik</span><span class="pval" id="p-alt">—</span></div>
+        <div class="prow"><span class="plbl">Hız</span>     <span class="pval" id="p-vel">—</span></div>
+
+        <div class="ptitle">⚠ Çarpışma Riski</div>
+        <div id="risk-box">
+            <div id="risk-lvl">Hesaplanıyor…</div>
+            <div id="risk-sub"></div>
+        </div>
+
+        <div class="tehdit-baslik">Yüksek Riskli Enkazlar</div>
+        <div id="tehdit-listesi"></div>
+    </div>
+
+    <div id="legend">
+        <div class="lrow"><div class="dot" style="background:#00bfff;border:2px solid #fff"></div>Türk Uydusu</div>
+        <div class="lrow"><div class="dot" style="background:#ff1744"></div>Iridium Debris</div>
+        <div class="lrow"><div class="dot" style="background:#ffd600"></div>Sarı Risk Yörüngesi</div>
+        <div class="lrow"><div class="dot" style="background:#ff1744"></div>Kırmızı Risk Yörüngesi</div>
+    </div>
+
+    <div id="stats">
+        Debris: <b id="st-d">—</b><br>
+        Uydu: <b id="st-u">—</b><br>
+        Güncelleme: <b id="st-t">—</b>
+    </div>
+
+    <div id="click-card" class="hidden">
+        <div class="click-card-top">
+            <div class="click-card-left">
+                <div id="click-card-icon">🛰</div>
+                <div>
+                    <div id="click-card-title">—</div>
+                    <div id="click-card-type-badge" class="sat">TÜRK UYDUSU</div>
+                </div>
+            </div>
+            <button id="click-card-close" onclick="closeClickCard()">✕</button>
+        </div>
+
+        <div class="cc-row"><span>Enlem</span><b id="cc-lat">—</b></div>
+        <div class="cc-row"><span>Boylam</span><b id="cc-lon">—</b></div>
+        <div class="cc-row"><span>Hız</span><b id="cc-vel">—</b></div>
+        <div class="cc-row"><span>Ülke/Bölge</span><b id="cc-ulke">—</b></div>
+    </div>
+
+    <div id="cesium"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

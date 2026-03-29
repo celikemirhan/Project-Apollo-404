@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #cesium {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #09111b;
+    color: #dbe6ee;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html, body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 62px;
+    z-index: 20;
+    background: rgba(8, 14, 24, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.logo {
+    color: #eaf4ff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.sep {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#uydu-sel {
+    background: rgba(20, 30, 44, 0.82);
+    color: #e6edf3;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+#uydu-sel:hover {
+    background: rgba(28, 40, 58, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+#uydu-sel:focus {
+    border-color: rgba(120, 170, 255, 0.45);
+}
+
+.tbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(20, 30, 44, 0.72);
+    color: #e6edf3;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.tbtn:hover {
+    background: rgba(36, 50, 72, 0.85);
+    border-color: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+.tbtn:active {
+    transform: scale(0.98);
+}
+
+.tbtn.off {
+    background: rgba(90, 32, 44, 0.35);
+    color: #ffd6dc;
+    border-color: rgba(255, 120, 140, 0.25);
+}
+
+#utc {
+    margin-left: auto;
+    color: #99a8b7;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+#panel {
+    position: absolute;
+    top: 76px;
+    left: 14px;
+    z-index: 10;
+    background: rgba(8, 14, 24, 0.86);
+    color: #d3dde6;
+    padding: 16px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    width: 290px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+#panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+#panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+}
+
+.ptitle {
+    color: #8fd3ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    margin: 12px 0 7px;
+    text-transform: uppercase;
+}
+
+.prow {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 12px;
+}
+
+.plbl {
+    color: #8fa1b2;
+}
+
+.pval {
+    color: #f1f6fb;
+    font-weight: 600;
+    text-align: right;
+    max-width: 155px;
+}
+
+#risk-box {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    text-align: center;
+    transition: all 0.35s ease;
+}
+
+#risk-lvl {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+#risk-sub {
+    font-size: 12px;
+    color: #9fb0bf;
+    margin-top: 6px;
+    line-height: 1.6;
+}
+
+.tehdit-baslik {
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffd166;
+    letter-spacing: 0.6px;
+}
+
+#tehdit-listesi {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tehdit-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left-width: 4px;
+    border-radius: 10px;
+    padding: 10px 10px 9px 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 10px;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.tehdit-item:hover {
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+.tehdit-item.active {
+    box-shadow: 0 0 0 1px rgba(255, 214, 0, 0.25);
+}
+
+.tehdit-isim {
+    color: #f6fbff;
+    font-weight: 600;
+}
+
+.tehdit-skor {
+    font-weight: 800;
+}
+
+.tehdit-detay {
+    grid-column: 1 / -1;
+    color: #9db0bf;
+    font-size: 12px;
+}
+
+.tehdit-bos {
+    padding: 10px;
+    background: rgba(0, 230, 118, 0.08);
+    color: #b9ffd2;
+    border: 1px solid rgba(0, 230, 118, 0.15);
+    border-radius: 10px;
+}
+
+#legend {
+    position: absolute;
+    bottom: 16px;
+    left: 14px;
+    z-index: 10;
+    background: rgba(8, 14, 24, 0.84);
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    color: #aab7c4;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.lrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 5px 0;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#stats {
+    position: absolute;
+    bottom: 16px;
+    right: 14px;
+    z-index: 10;
+    background: rgba(8, 14, 24, 0.84);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    color: #9db0bf;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    line-height: 1.8;
+    text-align: right;
+}
+
+#stats b {
+    color: #f1f6fb;
+    font-weight: 600;
+}
+
+#click-card {
+    position: absolute;
+    top: 76px;
+    right: 14px;
+    z-index: 12;
+    width: 300px;
+    background: rgba(8, 14, 24, 0.90);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#click-card.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+}
+
+.click-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.click-card-left {
+    display: flex;
+    gap: 10px;
+}
+
+#click-card-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+#click-card-title {
+    color: #f6fbff;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+#click-card-type-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 7px;
+    border-radius: 999px;
+    color: #ffd3db;
+    background: rgba(255, 23, 68, 0.14);
+    border: 1px solid rgba(255, 23, 68, 0.20);
+}
+
+#click-card-type-badge.sat {
+    color: #bcecff;
+    background: rgba(0, 191, 255, 0.14);
+    border: 1px solid rgba(0, 191, 255, 0.20);
+}
+
+#click-card-close {
+    background: transparent;
+    color: #9db0bf;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.cc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+}
+
+.cc-row span {
+    color: #8fa1b2;
+}
+
+.cc-row b {
+    color: #f1f6fb;
+    text-align: right;
+}
+
+#cc-ulke.loading {
+    color: #ffd166;
+}
+
+#cc-ulke.ocean,
+#p-ulke.ocean {
+    color: #8fd3ff;
+}
+
+#cesium {
+    position: absolute;
+    top: 62px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cesium-widget-credits,
+.cesium-viewer-toolbar {
+    display: none !important;
+}
