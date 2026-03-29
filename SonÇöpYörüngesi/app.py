@@ -9,6 +9,10 @@ from skyfield.api import EarthSatellite
 import requests
 import json, os, math
 from datetime import timedelta, timezone
+from Get_Data import guncellemeleri_baslat, VERI_KAYNAKLARI
+
+# Uygulama başlarken verileri kontrol et ve gerekirse güncelle
+guncellemeleri_baslat(VERI_KAYNAKLARI)
 
 app = Flask(__name__)
 
